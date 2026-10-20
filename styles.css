@@ -1,14 +1,14 @@
 /* Core Color Palette & Variables */
 :root {
-    --bg-dark: #090d16;
-    --bg-viewport: #0f172a;
-    --card-bg: rgba(30, 41, 59, 0.7);
-    --text-main: #f8fafc;
-    --text-muted: #64748b;
-    --primary: #6366f1; /* Neon Purple */
-    --accent: #10b981;  /* Emerald Green for Money/Grants */
-    --warning: #f59e0b; /* Amber Gold for Loans */
-    --glow-grad: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --bg-dark: #f4f0e3;
+    --bg-viewport: #fbf8ef;
+    --card-bg: #fffdf7;
+    --text-main: #173b2b;
+    --text-muted: #65776b;
+    --primary: #1d543b;
+    --accent: #286b45;
+    --warning: #b17b18;
+    --glow-grad: linear-gradient(135deg, #e5c778 0%, #fff1c2 100%);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -20,25 +20,25 @@ body { background-color: var(--bg-dark); color: var(--text-main); min-height: 10
 /* Structural Navigation Sidebar */
 .sidebar {
     width: 280px;
-    background-color: #020617;
-    border-right: 1px solid rgba(255,255,255,0.05);
-    padding: 30px 20px;
+    background-color: #173b2b;
+    border-right: 1px solid rgba(23,59,43,0.12);
+    padding: 24px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
-.brand-zone { margin-bottom: 40px; }
+.brand-zone { margin-bottom: 24px; }
 .logo { font-size: 26px; font-weight: 800; background: var(--glow-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.app-tier { font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 1px; margin-top: 4px; }
+.app-tier { font-size: 11px; text-transform: uppercase; color: #d7c99e; font-weight: 700; letter-spacing: 1px; margin-top: 4px; }
 
 .side-links { display: flex; flex-direction: column; gap: 8px; }
 .side-links button {
-    text-align: left; background: none; border: none; color: var(--text-muted);
+    text-align: left; background: none; border: none; color: #d7e2d8;
     padding: 14px 16px; font-size: 14px; font-weight: 600; border-radius: 12px;
     cursor: pointer; transition: all 0.2s ease;
 }
 .side-links button:hover, .side-links button.active-nav {
-    color: var(--text-main); background: rgba(255,255,255,0.05);
+    color: #173b2b; background: #e5c778;
 }
 
 /* Main Panel Content Canvas Area */
@@ -50,40 +50,41 @@ body { background-color: var(--bg-dark); color: var(--text-main); min-height: 10
 
 h1 { font-size: 38px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
 h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
-.subtitle { color: var(--text-muted); font-size: 16px; max-width: 650px; line-height: 1.5; margin-bottom: 40px; }
+.view-header { text-align: center; }
+.subtitle { color: var(--text-muted); font-size: 16px; max-width: 650px; line-height: 1.5; margin: 0 auto 40px; }
 .panel-desc { color: var(--text-muted); font-size: 15px; margin-bottom: 24px; }
 
 /* Grid Dashboard Menu Cards */
 .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .card {
-    background: var(--card-bg); border: 1px solid rgba(255,255,255,0.03);
+    background: var(--card-bg); border: 1px solid #e8e1cf;
     border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.2s ease;
 }
-.card:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.3); background: rgba(30,41,59,0.9); }
+.card:hover { transform: translateY(-4px); border-color: var(--warning); background: #f5efd9; }
 .card h3 { font-size: 18px; margin-bottom: 8px; }
 .card p { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
 
 /* Form Panels & Numeric Input Fields */
-.form-panel { background: #0b0f19; border: 1px solid rgba(255,255,255,0.03); border-radius: 16px; padding: 30px; margin-bottom: 24px; }
+.form-panel { background: #f4f0e3; border: 1px solid #e8e1cf; border-radius: 16px; padding: 30px; margin-bottom: 24px; }
 .input-row { margin-bottom: 20px; }
 label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
 .input-wrapper { position: relative; display: flex; align-items: center; }
 .input-icon { position: absolute; left: 16px; color: var(--text-muted); font-size: 14px; font-weight: 600; }
 input {
-    width: 100%; background: #020617; border: 1px solid rgba(255,255,255,0.08);
+    width: 100%; background: #fffdf7; border: 1px solid #d8d0bc;
     border-radius: 10px; padding: 12px 12px 12px 32px; color: var(--text-main);
     font-size: 15px; font-weight: 500; transition: border 0.2s;
 }
 input:focus { outline: none; border-color: var(--primary); }
 
 /* Glowing Data Output Hero Blocks */
-.output-hero { background: #020617; border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 30px; }
+.output-hero { background: #e8efdf; border: 1px solid #d9c478; border-radius: 16px; padding: 30px; color: var(--text-main); }
 .output-hero p { font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
 .output-hero .metric-value { font-size: 42px; font-weight: 800; color: var(--accent); margin-top: 5px; }
 .output-hero .metric-value.warning-color { color: var(--warning); }
 
 .dual-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
-.sub-hero { background: rgba(255,255,255,0.02); border-radius: 12px; padding: 16px; border: 1px solid rgba(255,255,255,0.02); }
+.sub-hero { background: #fffdf7; border-radius: 12px; padding: 16px; border: 1px solid #dce5d6; }
 .sub-hero h4 { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
 .sub-hero div { font-size: 20px; font-weight: 700; }
 
@@ -91,5 +92,5 @@ input:focus { outline: none; border-color: var(--primary); }
 .data-block .highlight-val { font-size: 32px; font-weight: 800; margin-top: 4px; }
 .data-block .highlight-val.style-green { color: var(--accent); }
 
-.sidebar-footer { font-size: 10px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.5px; }
+.sidebar-footer { margin-top: auto; padding-top: 24px; font-size: 10px; color: #d7c99e; font-weight: 500; letter-spacing: 0.5px; }
 ul { list-style-type: square; margin-left: 20px; }
