@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CapWay - Youth Financial Navigator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">CapWay 📈</div>
+        <div class="nav-links">
+            <button onclick="showPage('dashboard')">Home</button>
+            <button onclick="showPage('college-calc')">1. College Cost</button>
+            <button onclick="showPage('loan-calc')">2. Loan Forecaster</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- PAGE 1: DASHBOARD -->
+        <section id="dashboard" class="page active">
+            <h1>Welcome to CapWay</h1>
+            <p class="subtitle">Empowering students to take control of their higher education finances.</p>
+            <div class="card-grid">
+                <div class="card" onclick="showPage('college-calc')">
+                    <h3>Step 1: Net Cost Calculator</h3>
+                    <p>Find out your true out-of-pocket college costs by subtracting financial aid from sticker price.</p>
+                </div>
+                <div class="card" onclick="showPage('loan-calc')">
+                    <h3>Step 2: 10-Year Loan Forecaster</h3>
+                    <p>See the long-term impact of compound interest and calculate your exact future monthly payment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: COLLEGE COST CALCULATOR -->
+        <section id="college-calc" class="page">
+            <h2>College Net Cost Calculator</h2>
+            <p>Determine exactly what you will owe out-of-pocket after financial assistance.</p>
+            <div class="form-group">
+                <label>Tuition Sticker Price ($/year):</label>
+                <input type="number" id="sticker-price" value="35000">
+                
+                <label>Grants & Scholarships received ($/year):</label>
+                <input type="number" id="grants" value="12000">
+                
+                <label>Work-Study or Personal Savings ($/year):</label>
+                <input type="number" id="savings" value="3000">
+                
+                <button onclick="calculateNetCost()" class="btn">Calculate Net Price</button>
+            </div>
+            <div class="result-box">
+                <h3>Your Actual Net Cost: <span id="net-cost-output">$0.00</span> per year</h3>
+            </div>
+        </section>
+
+        <!-- PAGE 3: LOAN FORECASTER -->
+        <section id="loan-calc" class="page">
+            <h2>10-Year Student Loan Forecaster</h2>
+            <p>See how compound interest impacts your total student loan balance over time.</p>
+            <div class="form-group">
+                <label>Total Principal Loan Amount ($):</label>
+                <input type="number" id="loan-principal" value="25000">
+                
+                <label>Annual Interest Rate (%):</label>
+                <input type="number" id="loan-rate" value="6.5" step="0.1">
+                
+                <button onclick="forecastLoan()" class="btn">Forecast Loan Payments</button>
+            </div>
+            <div class="result-box">
+                <h3>Monthly Payment: <span id="monthly-output">$0.00</span></h3>
+                <h3>Total Lifetime Interest: <span id="interest-output">$0.00</span></h3>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- APP INTERACTIVE LOGIC (Perfect for her to explain!) -->
+    <script>
+        // Function 1: Page Router
+        // Hides all pages by removing the 'active' class, then reveals the clicked page.
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Function 2: Basic Subtraction Logic
+        // Takes user inputs and subtracts assistance from sticker price.
+        function calculateNetCost() {
+            const sticker = parseFloat(document.getElementById('sticker-price').value) || 0;
+            const grants = parseFloat(document.getElementById('grants').value) || 0;
+            const savings = parseFloat(document.getElementById('savings').value) || 0;
+            
+            const netCost = sticker - (grants + savings);
+            document.getElementById('net-cost-output').innerText = "$" + netCost.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }
+
+        // Function 3: Loan Amortization Formula
+        // Computes monthly payment using the standard banking formula.
+        function forecastLoan() {
+            const principal = parseFloat(document.getElementById('loan-principal').value) || 0;
+            const annualRate = parseFloat(document.getElementById('loan-rate').value) || 0;
+            const years = 10; // Fixed 10-year term standard
+
+            const monthlyRate = (annualRate / 100) / 12;
+            const totalMonths = years * 12;
+
+            // Mathematical Amortization Formula
+            const monthlyPayment = (principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / 
+                                   (Math.pow(1 + monthlyRate, totalMonths) - 1);
+            
+            const totalPaid = monthlyPayment * totalMonths;
+            const totalInterest = totalPaid - principal;
+
+            // Output values to the screen HTML
+            document.getElementById('monthly-output').innerText = "$" + monthlyPayment.toFixed(2);
+            document.getElementById('interest-output').innerText = "$" + totalInterest.toFixed(2);
+        }
+    </script>
+</body>
+</html>
