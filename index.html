@@ -245,15 +245,18 @@
             let pellGrant = 0;
             let strategy = "";
 
-            if (income <= 40000 + (size * 5000)) {
+            if (income <= 50000 + (size * 5000)) {
                 pellGrant = 7395;
-                strategy = "Maximum Need-Based Status. Your profile qualifies for maximum federal Pell grants, state-level tuition assistance programs, and subsidized federal direct loans that do not accrue interest while in school.";
-            } else if (income <= 75000 + (size * 5000)) {
-                pellGrant = 3500;
-                strategy = "Partial Need-Based Bracket. Qualifies for partial federal Pell grants and partial work-study resources. Focus strategic planning on public in-state universities or institutions using institutional financial aid profiles (CSS Profile) to target deep endowment support.";
+                strategy = "Maximum Need-Based Status.";
+            } else if (income <= 100000) {
+                pellGrant = 4000;
+                strategy = "Moderate Need-Based Bracket. Focus on public in-state choices or generous private institutions using the CSS Profile to capture institutional aid.";
+            } else if (income <= 150000) {
+                pellGrant = 0;
+                strategy = "Middle-Class Non-Need Gap Bracket. Too high for federal need grants, but heavily exposed to out-of-pocket tuition costs. Strategy: Target private universities that guarantee meeting 100% of demonstrated financial need or public universities with automatic regional tuition breaks.";
             } else {
                 pellGrant = 0;
-                strategy = "Non-Need Threshold (Parental Income Index exceeds Federal Grant Boundaries). Federal aid will be restricted to non-subsidized direct loans. Action Strategy: Pivot heavily to institutional automatic merit grids, seeking schools whose high-tier GPA/SAT matrix thresholds completely offset the out-of-pocket delta.";
+                strategy = "High-Income Non-Need Threshold. Federal aid is limited to unsubsidized loans. Strategy: Pivot entirely to merit-based automatic tuition grids where high GPA/SAT profiles completely offset the sticker price delta.";
             }
 
             document.getElementById('pell-output').innerText = pellGrant > 0 ? "$" + pellGrant.toLocaleString() + " / year" : "$0.00";
@@ -272,18 +275,18 @@
                 title = "Tier 1: Elite Automatic Presidential Excellence Award";
                 desc = "Your academic variables command complete automatic tuition offsets. These milestones unlock flagship institutional honors frameworks and highly competitive non-need-based multi-year scholarships.";
                 schools = [
-                    "University of Michigan (Ross School of Business) - Top-Tier Finance Placement",
-                    "New York University (Stern School of Business) - High-ROI Corporate Network",
                     "Boston College (Carroll School of Management) - Elite Regional Recruitment",
-                    "University of New Hampshire (Paul College) - Complete Automatic In-State Offset"
+                    "Northeastern University - Renowned Enterprise Co-op Corporate Pipeline",
+                    "University of Massachusetts Amherst (Isenberg School of Management) - High-ROI Public Honors Option",
+                    "University of New Hampshire (Peter T. Paul College) - Maximum In-State Automatic Merit Offset"
                 ];
             } else if (gpa >= 3.5 || sat >= 1300) {
                 title = "Tier 2: High Honors Merit Bracket";
                 desc = "Qualifies for competitive institutional discounts averaging $15,000 to $25,000 annually. Pair these indicators with regional endowment funds and targeted business administration programs.";
                 schools = [
-                    "Bentley University - Specialized Corporate Finance Infrastructure",
-                    "Northeastern University - Renowned Enterprise Co-op Frameworks",
-                    "University of Connecticut (UConn Business School)"
+                    "Bentley University - Elite Corporate Finance & Advanced Analytics Infrastructure",
+                    "Babson College - World-Class Entrepreneurial Leadership & Finance Integration",
+                    "Bryant University - High-Earning Career Outcomes & Finance Practicum Lab"
                 ];
             } else {
                 title = "Tier 3: Standard Academic Achievement Foundation";
@@ -309,4 +312,3 @@
     </script>
 </body>
 </html>
-
