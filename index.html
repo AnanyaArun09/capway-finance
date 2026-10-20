@@ -3,123 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CapWay - Youth Financial Navigator</title>
+    <title>CapWay - Advanced Financial & Scholarship Clearinghouse</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Top Navigation Bar -->
-    <nav class="navbar">
-        <div class="logo">CapWay 📈</div>
-        <div class="nav-links">
-            <button onclick="showPage('dashboard')">Home</button>
-            <button onclick="showPage('college-calc')">1. College Cost</button>
-            <button onclick="showPage('loan-calc')">2. Loan Forecaster</button>
-        </div>
-    </nav>
-
-    <div class="container">
+    <!-- Unified Master App Frame -->
+    <div class="app-frame">
         
-        <!-- PAGE 1: DASHBOARD -->
-        <section id="dashboard" class="page active">
-            <h1>Welcome to CapWay</h1>
-            <p class="subtitle">Empowering students to take control of their higher education finances.</p>
-            <div class="card-grid">
-                <div class="card" onclick="showPage('college-calc')">
-                    <h3>Step 1: Net Cost Calculator</h3>
-                    <p>Find out your true out-of-pocket college costs by subtracting financial aid from sticker price.</p>
-                </div>
-                <div class="card" onclick="showPage('loan-calc')">
-                    <h3>Step 2: 10-Year Loan Forecaster</h3>
-                    <p>See the long-term impact of compound interest and calculate your exact future monthly payment.</p>
-                </div>
+        <!-- Left Persistent Command Sidebar -->
+        <aside class="sidebar">
+            <div class="brand-zone">
+                <div class="logo">CapWay //</div>
+                <div class="app-tier">Strategic Planner</div>
             </div>
-        </section>
-
-        <!-- PAGE 2: COLLEGE COST CALCULATOR -->
-        <section id="college-calc" class="page">
-            <h2>College Net Cost Calculator</h2>
-            <p>Determine exactly what you will owe out-of-pocket after financial assistance.</p>
-            <div class="form-group">
-                <label>Tuition Sticker Price ($/year):</label>
-                <input type="number" id="sticker-price" value="35000">
-                
-                <label>Grants & Scholarships received ($/year):</label>
-                <input type="number" id="grants" value="12000">
-                
-                <label>Work-Study or Personal Savings ($/year):</label>
-                <input type="number" id="savings" value="3000">
-                
-                <button onclick="calculateNetCost()" class="btn">Calculate Net Price</button>
+            <nav class="side-links">
+                <button id="nav-dashboard" class="active-nav" onclick="showPage('dashboard')">📊 Main Dashboard</button>
+                <button id="nav-college-calc" onclick="showPage('college-calc')">💵 Net Cost Index</button>
+                <button id="nav-loan-calc" onclick="showPage('loan-calc')">📈 Debt Forecaster</button>
+                <button id="nav-federal-calc" onclick="showPage('federal-calc')">🏛️ FAFSA & Federal Aid</button>
+                <button id="nav-merit-calc" onclick="showPage('merit-calc')">✨ Merit Scholarship Matrix</button>
+            </nav>
+            <div class="sidebar-footer">
+                District Level Tracking // NH-02
             </div>
-            <div class="result-box">
-                <h3>Your Actual Net Cost: <span id="net-cost-output">$0.00</span> per year</h3>
-            </div>
-        </section>
+        </aside>
 
-        <!-- PAGE 3: LOAN FORECASTER -->
-        <section id="loan-calc" class="page">
-            <h2>10-Year Student Loan Forecaster</h2>
-            <p>See how compound interest impacts your total student loan balance over time.</p>
-            <div class="form-group">
-                <label>Total Principal Loan Amount ($):</label>
-                <input type="number" id="loan-principal" value="25000">
-                
-                <label>Annual Interest Rate (%):</label>
-                <input type="number" id="loan-rate" value="6.5" step="0.1">
-                
-                <button onclick="forecastLoan()" class="btn">Forecast Loan Payments</button>
-            </div>
-            <div class="result-box">
-                <h3>Monthly Payment: <span id="monthly-output">$0.00</span></h3>
-                <h3>Total Lifetime Interest: <span id="interest-output">$0.00</span></h3>
-            </div>
-        </section>
-
-    </div>
-
-    <!-- APP INTERACTIVE LOGIC (Perfect for her to explain!) -->
-    <script>
-        // Function 1: Page Router
-        // Hides all pages by removing the 'active' class, then reveals the clicked page.
-        function showPage(pageId) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-        }
-
-        // Function 2: Basic Subtraction Logic
-        // Takes user inputs and subtracts assistance from sticker price.
-        function calculateNetCost() {
-            const sticker = parseFloat(document.getElementById('sticker-price').value) || 0;
-            const grants = parseFloat(document.getElementById('grants').value) || 0;
-            const savings = parseFloat(document.getElementById('savings').value) || 0;
+        <!-- Right Main View Canvas -->
+        <main class="viewport">
             
-            const netCost = sticker - (grants + savings);
-            document.getElementById('net-cost-output').innerText = "$" + netCost.toLocaleString(undefined, {minimumFractionDigits: 2});
-        }
+            <!-- VIEW 1: CENTRAL COMMAND DASHBOARD -->
+            <section id="dashboard" class="page active">
+                <div class="view-header">
+                    <h1>Navigate Your Educational ROI</h1>
+                    <p class="subtitle">An advanced financial engine built to demystify college transparency, financial aid indexing, and long-term liabilities.</p>
+                </div>
+                
+                <div class="card-grid">
+                    <div class="card" onclick="showPage('college-calc')">
+                        <div class="card-content">
+                            <h3>01 / Net Price Index</h3>
+                            <p>Isolate structural baseline costs. Deduct localized savings fields and grants instantly from university sticker figures.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="showPage('loan-calc')">
+                        <div class="card-content">
+                            <h3>02 / Debt Forecaster</h3>
+                            <p>Model compound interest over a 120-month cycle to expose true post-graduation monthly liability.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="showPage('federal-calc')">
+                        <div class="card-content">
+                            <h3>03 / FAFSA & Federal Aid Engine</h3>
+                            <p>Input parental household income arrays to instantly predict Pell Grant eligibility and expected family baseline ranges.</p>
+                        </div>
+                    </div>
+                    <div class="card" onclick="showPage('merit-calc')">
+                        <div class="card-content">
+                            <h3>04 / Merit Scholarship Matrix</h3>
+                            <p>Cross-reference standardized SAT marks and GPA tiers against targeted university institutional programs.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        // Function 3: Loan Amortization Formula
-        // Computes monthly payment using the standard banking formula.
-        function forecastLoan() {
-            const principal = parseFloat(document.getElementById('loan-principal').value) || 0;
-            const annualRate = parseFloat(document.getElementById('loan-rate').value) || 0;
-            const years = 10; // Fixed 10-year term standard
+            <!-- VIEW 2: NET COST CALCULATOR -->
+            <section id="college-calc" class="page">
+                <h2>College Net Cost Calculator</h2>
+                <p class="panel-desc">Isolate true out-of-pocket balance metrics after deducting assistance packages.</p>
+                
+                <div class="form-panel">
+                    <div class="input-row">
+                        <label>Tuition Sticker Price (Per Year)</label>
+                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="sticker-price" value="45000" oninput="calculateNetCost()"></div>
+                    </div>
+                    <div class="input-row">
+                        <label>Grants & External Scholarships</label>
+                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="grants" value="15000" oninput="calculateNetCost()"></div>
+                    </div>
+                    <div class="input-row">
+                        <label>Student Work-Study / Family Capital</label>
+                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="savings" value="5000" oninput="calculateNetCost()"></div>
+                    </div>
+                </div>
+                <div class="output-hero">
+                    <p>True Out-of-Pocket Annual Obligation</p>
+                    <div id="net-cost-output" class="metric-value">$25,000.00</div>
+                </div>
+            </section>
 
-            const monthlyRate = (annualRate / 100) / 12;
-            const totalMonths = years * 12;
+            <!-- VIEW 3: DEBT FORECASTER -->
+            <section id="loan-calc" class="page">
+                <h2>10-Year Student Loan Forecaster</h2>
+                <p class="panel-desc">Model how compound interest algorithms scale financial obligations across standard repayment cycles.</p>
+                
+                <div class="form-panel">
+                    <div class="input-row">
+                        <label>Total Principal Loan Accumulation</label>
+                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="loan-principal" value="30000" oninput="forecastLoan()"></div>
+                    </div>
+                    <div class="input-row">
+                        <label>Annual Interest Percentage Rate (APR)</label>
+                        <div class="input-wrapper"><span class="input-icon">%</span><input type="number" id="loan-rate" value="6.8" step="0.1" oninput="forecastLoan()" style="padding-left: 36px;"></div>
+                    </div>
+                </div>
+                <div class="output-hero">
+                    <p>Projected Monthly Payment Liability</p>
+                    <div id="monthly-output" class="metric-value warning-color">$345.24</div>
+                    <div class="dual-metrics">
+                        <div class="sub-hero"><h4>Total Lifetime Interest</h4><div id="interest-output">$11,428.80</div></div>
+                        <div class="sub-hero"><h4>Cumulative Repayment</h4><div id="total-paid-output">$41,428.80</div></div>
+                    </div>
+                </div>
+            </section>
 
-            // Mathematical Amortization Formula
-            const monthlyPayment = (principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / 
-                                   (Math.pow(1 + monthlyRate, totalMonths) - 1);
-            
-            const totalPaid = monthlyPayment * totalMonths;
-            const totalInterest = totalPaid - principal;
+            <!-- VIEW 4: FAFSA & FEDERAL AID ENGINE -->
+            <section id="federal-calc" class="page">
+                <h2>FAFSA & Federal Need-Based Eligibility</h2>
+                <p class="panel-desc">An institutional simulation tracking parent financial indexes against corporate federal guidelines.</p>
+                
+                <div class="form-panel">
+                    <div class="input-row">
+                        <label>Parental Combined Net Annual Income</label>
+                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="parent-income" value="65000" oninput="calculateFederalAid()"></div>
+                    </div>
+                    <div class="input-row">
+                        <label>Household Household Size (Dependents)</label>
+                        <div class="input-wrapper"><input type="number" id="household-size" value="4" min="1" oninput="calculateFederalAid()" style="padding-left: 16px;"></div>
+                    </div>
+                </div>
+                <div class="output-hero" style="text-align: left;">
+                    <div class="data-block">
+                        <span class="block-label">Predicted Federal Pell Grant Allocation:</span>
+                        <div id="pell-output" class="highlight-val style-green">$7,395 / year</div>
+                    </div>
+                    <div class="data-block" style="margin-top: 20px;">
+                        <span class="block-label">FAFSA Index Action Strategy:</span>
+                        <p id="fafsa-strategy-text" style="margin-top: 5px; color: var(--text-main); font-size: 14px; line-height: 1.5;"></p>
+                    </div>
+                </div>
+            </section>
 
-            // Output values to the screen HTML
-            document.getElementById('monthly-output').innerText = "$" + monthlyPayment.toFixed(2);
-            document.getElementById('interest-output').innerText = "$" + totalInterest.toFixed(2);
-        }
-    </script>
-</body>
-</html>
+            <!-- VIEW 5: MERIT MATRIX -->
+            <section id="merit-calc" class="page">
+                <h2>Institutional Merit Matrix</h2>
+                <p class="panel-desc">Map objective standardized testing profiles and academic parameters to college merit pathways.</p>
+                
+                <div class="form-panel">
+                    <div class="dual-metrics" style="margin-top:0; margin-bottom:0; gap:20px;">
+                        <div class="input-row" style="margin-bottom:0;">
+                            <label>Unweighted GPA</label>
+                            <input type="number" id="student-gpa" value="3.9" step="0.1" min="0" max="4.0" oninput="calculateMerit()" style="padding-left:16px;">
+                        </div>
+                        <div class="input-row" style="margin-bottom:0;">
+                            <label>SAT Cumulative Score</label>
+                            <input type="number" id="student-sat" value="1530" step="10" min="400" max="1600" oninput="calculateMerit()" style="padding-left:16px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="output-hero" style="text-align: left;">
