@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <!-- Unified Master App Frame -->
@@ -131,7 +132,7 @@
                         <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="parent-income" value="65000" oninput="calculateFederalAid()"></div>
                     </div>
                     <div class="input-row">
-                        <label>Household Household Size (Dependents)</label>
+                        <label>Household Size (Dependents)</label>
                         <div class="input-wrapper"><input type="number" id="household-size" value="4" min="1" oninput="calculateFederalAid()" style="padding-left: 16px;"></div>
                     </div>
                 </div>
@@ -147,21 +148,166 @@
                 </div>
             </section>
 
-            <!-- VIEW 5: MERIT MATRIX -->
+            <!-- VIEW 5: MERIT SCHOLARSHIP MATRIX -->
             <section id="merit-calc" class="page">
                 <h2>Institutional Merit Matrix</h2>
                 <p class="panel-desc">Map objective standardized testing profiles and academic parameters to college merit pathways.</p>
                 
                 <div class="form-panel">
                     <div class="dual-metrics" style="margin-top:0; margin-bottom:0; gap:20px;">
-                        <div class="input-row" style="margin-bottom:0;">
+                        <div class="input-row" style="margin-bottom:0; flex:1;">
                             <label>Unweighted GPA</label>
                             <input type="number" id="student-gpa" value="3.9" step="0.1" min="0" max="4.0" oninput="calculateMerit()" style="padding-left:16px;">
                         </div>
-                        <div class="input-row" style="margin-bottom:0;">
+                        <div class="input-row" style="margin-bottom:0; flex:1;">
                             <label>SAT Cumulative Score</label>
                             <input type="number" id="student-sat" value="1530" step="10" min="400" max="1600" oninput="calculateMerit()" style="padding-left:16px;">
                         </div>
                     </div>
                 </div>
                 <div class="output-hero" style="text-align: left;">
+                    <h3 id="merit-tier-title" style="color: var(--primary); font-size: 18px; font-weight: 700; margin-bottom: 8px;">Scanning Merit Indexes...</h3>
+                    <p id="merit-tier-desc" style="color: var(--text-main); font-size: 14px; line-height: 1.5; margin-bottom: 20px;"></p>
+                    
+                    <div class="sub-hero" style="background: rgba(15,23,42,0.6);">
+                        <h4 style="color: var(--warning); font-size: 13px; margin-bottom: 8px;">Target High-ROI College Matching Matrices:</h4>
+                                                <ul id="merit-college-list" style="margin-left: 20px; font-size: 14px; line-height: 1.8;"></ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- CODE INTERACTIVE RUNTIME LOGIC -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            calculateNetCost();
+            forecastLoan();
+            calculateFederalAid();
+            calculateMerit();
+        });
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            const navButtons = document.querySelectorAll('.side-links button');
+            navButtons.forEach(btn => btn.classList.remove('active-nav'));
+            
+            const targetButton = document.getElementById('nav-' + pageId);
+            if (targetButton) {
+                targetButton.classList.add('active-nav');
+            }
+        }
+
+        function calculateNetCost() {
+            const sticker = parseFloat(document.getElementById('sticker-price').value) || 0;
+            const grants = parseFloat(document.getElementById('grants').value) || 0;
+            const savings = parseFloat(document.getElementById('savings').value) || 0;
+            const netCost = Math.max(0, sticker - (grants + savings));
+            document.getElementById('net-cost-output').innerText = "$" + netCost.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }
+
+        function forecastLoan() {
+            const principal = parseFloat(document.getElementById('loan-principal').value) || 0;
+            const annualRate = parseFloat(document.getElementById('loan-rate').value) || 0;
+            const years = 10;
+
+            if (principal === 0 || annualRate === 0) {
+                const flatMonthly = principal / (years * 12);
+                document.getElementById('monthly-output').innerText = "$" + flatMonthly.toFixed(2);
+                document.getElementById('interest-output').innerText = "$0.00";
+                document.getElementById('total-paid-output').innerText = "$" + principal.toFixed(2);
+                return;
+            }
+
+            const monthlyRate = (annualRate / 100) / 12;
+            const totalMonths = years * 12;
+            const monthlyPayment = (principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+            const totalPaid = monthlyPayment * totalMonths;
+            const totalInterest = totalPaid - principal;
+
+            document.getElementById('monthly-output').innerText = "$" + monthlyPayment.toFixed(2);
+            document.getElementById('interest-output').innerText = "$" + totalInterest.toFixed(2);
+            document.getElementById('total-paid-output').innerText = "$" + totalPaid.toFixed(2);
+        }
+
+        function calculateFederalAid() {
+            const income = parseFloat(document.getElementById('parent-income').value) || 0;
+            const size = parseInt(document.getElementById('household-size').value) || 1;
+            
+            let pellGrant = 0;
+            let strategy = "";
+
+            if (income <= 40000 + (size * 5000)) {
+                pellGrant = 7395;
+                strategy = "Maximum Need-Based Status. Your profile qualifies for maximum federal Pell grants, state-level tuition assistance programs, and subsidized federal direct loans that do not accrue interest while in school.";
+            } else if (income <= 75000 + (size * 5000)) {
+                pellGrant = 3500;
+                strategy = "Partial Need-Based Bracket. Qualifies for partial federal Pell grants and partial work-study resources. Focus strategic planning on public in-state universities or institutions using institutional financial aid profiles (CSS Profile) to target deep endowment support.";
+            } else {
+                pellGrant = 0;
+                strategy = "Non-Need Threshold (Parental Income Index exceeds Federal Grant Boundaries). Federal aid will be restricted to non-subsidized direct loans. Action Strategy: Pivot heavily to institutional automatic merit grids, seeking schools whose high-tier GPA/SAT matrix thresholds completely offset the out-of-pocket delta.";
+            }
+
+            document.getElementById('pell-output').innerText = pellGrant > 0 ? "$" + pellGrant.toLocaleString() + " / year" : "$0.00";
+            document.getElementById('fafsa-strategy-text').innerText = strategy;
+        }
+
+        function calculateMerit() {
+            const gpa = parseFloat(document.getElementById('student-gpa').value) || 0;
+            const sat = parseInt(document.getElementById('student-sat').value) || 0;
+            
+            let title = "";
+            let desc = "";
+            let schools = [];
+
+            if (gpa >= 3.9 && sat >= 1500) {
+                title = "Tier 1: Elite Automatic Presidential Excellence Award";
+                desc = "Your academic variables command complete automatic tuition offsets. These milestones unlock flagship institutional honors frameworks and highly competitive non-need-based multi-year scholarships.";
+                schools = [
+                    "University of Michigan (Ross School of Business) - Top-Tier Finance Placement",
+                    "New York University (Stern School of Business) - High-ROI Corporate Network",
+                    "Boston College (Carroll School of Management) - Elite Regional Recruitment",
+                    "University of New Hampshire (Paul College) - Complete Automatic In-State Offset"
+                ];
+            } else if (gpa >= 3.5 || sat >= 1300) {
+                title = "Tier 2: High Honors Merit Bracket";
+                desc = "Qualifies for competitive institutional discounts averaging $15,000 to $25,000 annually. Pair these indicators with regional endowment funds and targeted business administration programs.";
+                schools = [
+                    "Bentley University - Specialized Corporate Finance Infrastructure",
+                    "Northeastern University - Renowned Enterprise Co-op Frameworks",
+                    "University of Connecticut (UConn Business School)"
+                ];
+            } else {
+                title = "Tier 3: Standard Academic Achievement Foundation";
+                desc = "Eligible for baseline geographic state-grants and standard university programmatic entry scholarship tiers.";
+                schools = [
+                    "Plymouth State University - Regional Corporate Pipelines",
+                    "Keene State College",
+                    "UMass Lowell"
+                ];
+            }
+
+            document.getElementById('merit-tier-title').innerText = title;
+            document.getElementById('merit-tier-desc').innerText = desc;
+            
+            const list = document.getElementById('merit-college-list');
+            list.innerHTML = "";
+            schools.forEach(s => {
+                const li = document.createElement('li');
+                li.innerText = s;
+                list.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
+
+
