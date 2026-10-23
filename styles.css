@@ -201,11 +201,44 @@ h1 {
     gap: 24px;
 }
 
-.college-comparison {
+.dynamic-college-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     align-items: start;
     gap: 18px;
+}
+
+.add-college-button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 18px;
+    padding: 0 16px;
+    border: 1px solid var(--green-bright);
+    border-radius: 10px;
+    background: var(--green-bright);
+    color: #fff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.add-college-button:hover:not(:disabled) {
+    background: var(--green);
+}
+
+.add-college-button:focus-visible {
+    outline: 3px solid rgb(40 107 69 / 30%);
+    outline-offset: 3px;
+}
+
+.add-college-button:disabled {
+    border-color: var(--border);
+    background: var(--sand);
+    color: var(--muted);
+    cursor: not-allowed;
 }
 
 .college-column {
@@ -651,8 +684,8 @@ footer p {
         grid-template-columns: 1fr;
     }
 
-    .college-comparison {
-        grid-template-columns: 1fr;
+    .dynamic-college-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
     }
 
     .results-panel {
