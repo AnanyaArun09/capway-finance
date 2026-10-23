@@ -15,8 +15,8 @@
         <aside class="sidebar">
             <a class="logo" href="#home">CapWay<span>.</span></a>
             <p class="app-tier">College costs, made clear</p>
-            <nav class="side-links" aria-label="Page sections">
-                <a href="#home">Start here</a>
+            <nav class="side-links" aria-label="Main navigation">
+                <a href="#home">Home page</a>
                 <a href="#cost-planner">Compare colleges</a>
                 <a href="#ways-to-pay">Ways to pay</a>
                 <a href="#loan-planner">Explore loan payments</a>
@@ -26,15 +26,23 @@
         </aside>
 
         <main class="viewport">
-            <section id="home" class="hero">
+            <section id="home" class="hero page-view is-active">
                 <p class="eyebrow">Your college plan starts here</p>
                 <h1>College costs can be confusing. Let’s make them clearer.</h1>
-                <p class="hero-copy">College websites, aid offers, and loan terms can feel like a lot to figure out. Compare up to five colleges, understand the different kinds of aid, and explore how a loan might affect your monthly budget.</p>
-                <a class="primary-link" href="#cost-planner">Compare aid offers <span aria-hidden="true">↓</span></a>
-                <p class="hero-note">You don’t need to know all the answers. Start with what you know, then use the links and checklist to find the rest.</p>
+                <p class="hero-copy">CapWay is a student-friendly guide for making sense of college costs and financial aid. Use it to compare the yearly costs and aid offers from up to five colleges, see how grants, scholarships, loans, and work-study differ, and estimate what a loan payment might look like.</p>
+                <p class="hero-note">You can start with the information you already have. CapWay does not look up or verify college prices or aid offers, so use each school’s official information and ask its financial aid office to confirm your numbers.</p>
+                <div class="home-pages">
+                    <h2>What would you like help with?</h2>
+                    <div class="home-page-grid">
+                        <a class="home-page-card" href="#cost-planner"><span>01</span><h3>Compare college costs</h3><p>Compare up to five college costs and aid offers side by side.</p><strong>Open comparison →</strong></a>
+                        <a class="home-page-card" href="#ways-to-pay"><span>02</span><h3>Understand ways to pay</h3><p>Learn the difference between grants, work-study, loans, and other ways to pay.</p><strong>Explore aid types →</strong></a>
+                        <a class="home-page-card" href="#loan-planner"><span>03</span><h3>Estimate a loan payment</h3><p>Try a loan amount, interest rate, and repayment term to see an example.</p><strong>Try the estimator →</strong></a>
+                        <a class="home-page-card" href="#next-steps"><span>04</span><h3>Plan your next steps</h3><p>Use a checklist and find questions to ask colleges and financial aid offices.</p><strong>See the checklist →</strong></a>
+                    </div>
+                </div>
             </section>
 
-            <section id="cost-planner" class="content-section">
+            <section id="cost-planner" class="content-section page-view">
                 <div class="section-heading">
                     <p class="eyebrow">01 · Compare your aid offers</p>
                     <h2>What would each college cost you?</h2>
@@ -59,7 +67,7 @@
                 </div>
             </section>
 
-            <section id="ways-to-pay" class="content-section">
+            <section id="ways-to-pay" class="content-section page-view">
                 <div class="section-heading">
                     <p class="eyebrow">02 · Know what kind of help it is</p>
                     <h2>“Financial aid” can mean different things.</h2>
@@ -93,7 +101,7 @@
                 </div>
             </section>
 
-            <section id="loan-planner" class="content-section">
+            <section id="loan-planner" class="content-section page-view">
                 <div class="section-heading">
                     <p class="eyebrow">03 · Try a loan example</p>
                     <h2>What could a loan payment look like?</h2>
@@ -134,7 +142,7 @@
                 <p class="disclaimer">This example assumes you borrow the full amount at once and repay it in equal monthly payments at the same interest rate for the full term. It does not include fees, changing rates, or interest that may build before repayment starts. Real loan terms and payment options vary. Learn about your actual options at StudentAid.gov.</p>
             </section>
 
-            <section id="next-steps" class="content-section next-steps">
+            <section id="next-steps" class="content-section next-steps page-view">
                 <div class="section-heading">
                     <p class="eyebrow">04 · A next-step checklist</p>
                     <h2>You don’t have to figure it all out today.</h2>
@@ -154,7 +162,7 @@
                 </div>
             </section>
 
-            <footer>
+            <footer class="page-view">
                 <p>CapWay is a student planning guide, not a college, lender, or financial aid office. Costs, aid, and loan terms vary. Always confirm current details with official sources.</p>
             </footer>
         </main>
@@ -419,6 +427,37 @@
         loanForm.addEventListener('input', updateLoanEstimate);
         loanForm.addEventListener('change', updateLoanEstimate);
         updateLoanEstimate();
+
+        const pageViews = Array.from(document.querySelectorAll('.page-view'));
+        const pageLinks = Array.from(document.querySelectorAll('.side-links a'));
+
+        function showPage() {
+            const requestedPage = window.location.hash.slice(1) || 'home';
+            const activePage = pageViews.find(page => page.id === requestedPage) || document.getElementById('home');
+
+            pageViews.forEach(page => page.classList.toggle('is-active', page === activePage || (page.tagName === 'FOOTER' && activePage.id === 'home')));
+            pageLinks.forEach(link => {
+                if (link.hash === `#${activePage.id}`) {
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+            window.scrollTo(0, 0);
+        }
+
+        document.addEventListener('click', event => {
+            const link = event.target.closest('a[href^="#"]');
+            if (!link || !document.getElementById(link.hash.slice(1))?.classList.contains('page-view')) return;
+            event.preventDefault();
+            if (window.location.hash === link.hash) {
+                showPage();
+            } else {
+                window.location.hash = link.hash;
+            }
+        });
+        window.addEventListener('hashchange', showPage);
+        showPage();
     </script>
 </body>
 </html>
