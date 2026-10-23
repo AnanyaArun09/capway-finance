@@ -3,312 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CapWay - Advanced Financial & Scholarship Clearinghouse</title>
+    <meta name="description" content="A student-friendly guide to college costs, financial aid, and student loans.">
+    <title>CapWay | College Costs, Made Clear</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
-
 <body>
-
-    <!-- Unified Master App Frame -->
     <div class="app-frame">
-        
-        <!-- Left Persistent Command Sidebar -->
         <aside class="sidebar">
-            <div class="brand-zone">
-                <div class="logo">CapWay //</div>
-                <div class="app-tier">Strategic Planner</div>
-            </div>
-            <nav class="side-links">
-                <button id="nav-dashboard" class="active-nav" onclick="showPage('dashboard')">📊 Main Dashboard</button>
-                <button id="nav-college-calc" onclick="showPage('college-calc')">💵 Net Cost Index</button>
-                <button id="nav-loan-calc" onclick="showPage('loan-calc')">📈 Debt Forecaster</button>
-                <button id="nav-federal-calc" onclick="showPage('federal-calc')">🏛️ FAFSA & Federal Aid</button>
-                <button id="nav-merit-calc" onclick="showPage('merit-calc')">✨ Merit Scholarship Matrix</button>
+            <a class="logo" href="#home">CapWay<span>.</span></a>
+            <p class="app-tier">College costs, made clear</p>
+            <nav class="side-links" aria-label="Page sections">
+                <a href="#home">Start here</a>
+                <a href="#cost-planner">Compare two colleges</a>
+                <a href="#ways-to-pay">Ways to pay</a>
+                <a href="#loan-planner">Explore loan payments</a>
+                <a href="#next-steps">What to do next</a>
             </nav>
-            <div class="sidebar-footer">
-                District Level Tracking // NH-02
-            </div>
+            <p class="sidebar-footer">Made for students planning what comes after high school.</p>
         </aside>
 
-        <!-- Right Main View Canvas -->
         <main class="viewport">
-            
-            <!-- VIEW 1: CENTRAL COMMAND DASHBOARD -->
-            <section id="dashboard" class="page active">
-                <div class="view-header">
-                    <h1>Navigate Your Educational ROI</h1>
-                    <p class="subtitle">An advanced financial engine built to demystify college transparency, financial aid indexing, and long-term liabilities.</p>
+            <section id="home" class="hero">
+                <p class="eyebrow">Your college plan starts here</p>
+                <h1>College costs can be confusing. Let’s make them clearer.</h1>
+                <p class="hero-copy">College websites, aid offers, and loan terms can feel like a lot to figure out. Compare two colleges side by side, understand the different kinds of aid, and explore how a loan might affect your monthly budget.</p>
+                <a class="primary-link" href="#cost-planner">Compare two aid offers <span aria-hidden="true">↓</span></a>
+                <p class="hero-note">You don’t need to know all the answers. Start with what you know, then use the links and checklist to find the rest.</p>
+            </section>
+
+            <section id="cost-planner" class="content-section">
+                <div class="section-heading">
+                    <p class="eyebrow">01 · Compare your aid offers</p>
+                    <h2>What would each college cost you?</h2>
+                    <p>Use the yearly cost and aid amounts shown by each college. This simple comparison helps separate gift aid, loans, and work-study so they don’t get mixed together.</p>
                 </div>
-                
-                <div class="card-grid">
-                    <div class="card" onclick="showPage('college-calc')">
-                        <div class="card-content">
-                            <h3>01 / Net Price Index</h3>
-                            <p>Isolate structural baseline costs. Deduct localized savings fields and grants instantly from university sticker figures.</p>
+
+                <div id="compare-form" class="college-comparison">
+                    <article class="college-column" data-school="a">
+                        <h3 class="college-column-heading">College 1</h3>
+                        <div class="input-row">
+                            <label for="school-a-name">College name (optional)</label>
+                            <input id="school-a-name" type="text" maxlength="60" placeholder="For example, North Valley College">
                         </div>
-                    </div>
-                    <div class="card" onclick="showPage('loan-calc')">
-                        <div class="card-content">
-                            <h3>02 / Debt Forecaster</h3>
-                            <p>Model compound interest over a 120-month cycle to expose true post-graduation monthly liability.</p>
+                        <div class="input-row">
+                            <label for="school-a-cost">Estimated cost for one year</label>
+                            <p class="field-help">Use the school’s total yearly cost estimate. Look for “cost of attendance”; it may include tuition, housing, food, books, and travel.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-a-cost" class="comparison-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter yearly amount"></div>
                         </div>
-                    </div>
-                    <div class="card" onclick="showPage('federal-calc')">
-                        <div class="card-content">
-                            <h3>03 / FAFSA & Federal Aid Engine</h3>
-                            <p>Input parental household income arrays to instantly predict Pell Grant eligibility and expected family baseline ranges.</p>
+                        <div class="tuition-break-option">
+                            <label class="checkbox-label" for="school-a-nebhe">
+                                <input id="school-a-nebhe" class="comparison-toggle" type="checkbox">
+                                Eligible for New England Tuition Break (NEBHE Program)?
+                            </label>
+                            <p class="field-help">For this example only, checking this subtracts $12,000 from the yearly cost. Actual Tuition Break savings vary by college and program—confirm your eligibility and price with the college.</p>
                         </div>
-                    </div>
-                    <div class="card" onclick="showPage('merit-calc')">
-                        <div class="card-content">
-                            <h3>04 / Merit Scholarship Matrix</h3>
-                            <p>Cross-reference standardized SAT marks and GPA tiers against targeted university institutional programs.</p>
+                        <div class="input-row">
+                            <label for="school-a-grants">Grants and scholarships</label>
+                            <p class="field-help">Gift aid from your offer—money you usually don’t repay. Check whether awards renew each year.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-a-grants" class="comparison-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter yearly amount"></div>
                         </div>
-                    </div>
+                        <div class="input-row">
+                            <label for="school-a-loans">Loans offered</label>
+                            <p class="field-help">Borrowed money you would have to repay. Enter it here to see how it could cover part of the gap—not as a discount.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-a-loans" class="comparison-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter yearly amount or $0"></div>
+                        </div>
+                        <div class="input-row">
+                            <label for="school-a-work">Work-study offered</label>
+                            <p class="field-help">Money you may earn by working during school. It is not paid upfront or taken off the bill.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-a-work" class="comparison-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter yearly amount or $0"></div>
+                        </div>
+                        <div class="college-summary" aria-live="polite">
+                            <p>Cost entered before Tuition Break <strong id="school-a-original-cost">—</strong></p>
+                            <p>Example Tuition Break amount <strong id="school-a-nebhe-amount">—</strong></p>
+                            <p>Estimated cost after Tuition Break <strong id="school-a-adjusted-cost">—</strong></p>
+                            <p>Cost left after grants and scholarships <strong id="school-a-gap">—</strong></p>
+                            <p>If you borrowed all loans offered, still to cover <strong id="school-a-after-loans">—</strong></p>
+                            <p>Work-study you may earn <strong id="school-a-work-result">—</strong></p>
+                            <p id="school-a-message" class="college-message">Enter the yearly cost and grant/scholarship amount to compare.</p>
+                        </div>
+                        <section class="roi-tracker" aria-labelledby="school-a-roi-title">
+                            <h4 id="school-a-roi-title">Finance Major ROI Tracker</h4>
+                            <p class="field-help">Enter the total loans you expect to borrow for the whole degree. This example compares that amount with an assumed $75,000 yearly salary—not a guaranteed starting salary or a measure of whether a loan is safe.</p>
+                            <div class="input-row">
+                                <label for="school-a-total-loans">Total loans for the whole degree</label>
+                                <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-a-total-loans" class="total-loan-input" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter total loan amount"></div>
+                            </div>
+                            <div id="school-a-roi-result" class="roi-result" aria-live="polite">Enter your estimated total loans to see this example comparison.</div>
+                        </section>
+                    </article>
+
+                    <article class="college-column" data-school="b">
+                        <h3 class="college-column-heading">College 2</h3>
+                        <div class="input-row">
+                            <label for="school-b-name">College name (optional)</label>
+                            <input id="school-b-name" type="text" maxlength="60" placeholder="For example, Lakeside University">
+                        </div>
+                        <div class="input-row">
+                            <label for="school-b-cost">Estimated cost for one year</label>
+                            <p class="field-help">Use the school’s total yearly cost estimate. Look for “cost of attendance”; it may include tuition, housing, food, books, and travel.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-b-cost" class="comparison-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter yearly amount"></div>
+                        </div>
+                        <div class="tuition-break-option">
+                            <label class="checkbox-label" for="school-b-nebhe">
+                                <input id="school-b-nebhe" class="comparison-toggle" type="checkbox">
+                                Eligible for New England Tuition Break (NEBHE Program)?
+                            </label>
+                            <p class="field-help">For this example only, checking this subtracts $12,000 from the yearly cost. Actual Tuition Break savings vary by college and program—confirm your eligibility and price with the college.</p>
+                        </div>
+                        <div class="input-row">
+                            <label for="school-b-grants">Grants and scholarships</label>
+                            <p class="field-help">Gift aid from your offer—money you usually don’t repay. Check whether awards renew each year.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-b-grants" class="comparison-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter yearly amount"></div>
+                        </div>
+                        <div class="input-row">
+                            <label for="school-b-loans">Loans offered</label>
+                            <p class="field-help">Borrowed money you would have to repay. Enter it here to see how it could cover part of the gap—not as a discount.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-b-loans" class="comparison-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter yearly amount or $0"></div>
+                        </div>
+                        <div class="input-row">
+                            <label for="school-b-work">Work-study offered</label>
+                            <p class="field-help">Money you may earn by working during school. It is not paid upfront or taken off the bill.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-b-work" class="comparison-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter yearly amount or $0"></div>
+                        </div>
+                        <div class="college-summary" aria-live="polite">
+                            <p>Cost entered before Tuition Break <strong id="school-b-original-cost">—</strong></p>
+                            <p>Example Tuition Break amount <strong id="school-b-nebhe-amount">—</strong></p>
+                            <p>Estimated cost after Tuition Break <strong id="school-b-adjusted-cost">—</strong></p>
+                            <p>Cost left after grants and scholarships <strong id="school-b-gap">—</strong></p>
+                            <p>If you borrowed all loans offered, still to cover <strong id="school-b-after-loans">—</strong></p>
+                            <p>Work-study you may earn <strong id="school-b-work-result">—</strong></p>
+                            <p id="school-b-message" class="college-message">Enter the yearly cost and grant/scholarship amount to compare.</p>
+                        </div>
+                        <section class="roi-tracker" aria-labelledby="school-b-roi-title">
+                            <h4 id="school-b-roi-title">Finance Major ROI Tracker</h4>
+                            <p class="field-help">Enter the total loans you expect to borrow for the whole degree. This example compares that amount with an assumed $75,000 yearly salary—not a guaranteed starting salary or a measure of whether a loan is safe.</p>
+                            <div class="input-row">
+                                <label for="school-b-total-loans">Total loans for the whole degree</label>
+                                <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-b-total-loans" class="total-loan-input" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter total loan amount"></div>
+                            </div>
+                            <div id="school-b-roi-result" class="roi-result" aria-live="polite">Enter your estimated total loans to see this example comparison.</div>
+                        </section>
+                    </article>
+                </div>
+
+                <div id="comparison-takeaway" class="comparison-takeaway" aria-live="polite">Enter information for both colleges to compare the estimates.</div>
+                <p class="disclaimer">This is a planning comparison—not a bill or a recommendation about which college to choose. The $12,000 Tuition Break amount and $75,000 salary are examples chosen for this tool, not guaranteed savings or verified salary averages. Tuition Break eligibility and savings vary by program. Loans must be repaid, and work-study must be earned; neither reduces the college’s cost. Confirm costs, eligibility, and current award details with each college.</p>
+
+                <div class="questions-panel">
+                    <h3>Questions to ask each college’s financial aid office</h3>
+                    <ul>
+                        <li>What costs are included in this yearly estimate, and what might be extra?</li>
+                        <li>Which grants and scholarships can renew next year, and what do I need to do to keep them?</li>
+                        <li>Which loans are offered, what are their interest rates, and do I have to accept them?</li>
+                        <li>How does work-study pay me, and how many hours might I need to work?</li>
+                        <li>After grants and scholarships, what amount would my family still need to plan for?</li>
+                    </ul>
                 </div>
             </section>
 
-            <!-- VIEW 2: NET COST CALCULATOR -->
-            <section id="college-calc" class="page">
-                <h2>College Net Cost Calculator</h2>
-                <p class="panel-desc">Isolate true out-of-pocket balance metrics after deducting assistance packages.</p>
-                
-                <div class="form-panel">
-                    <div class="input-row">
-                        <label>Tuition Sticker Price (Per Year)</label>
-                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="sticker-price" value="45000" oninput="calculateNetCost()"></div>
-                    </div>
-                    <div class="input-row">
-                        <label>Grants & External Scholarships</label>
-                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="grants" value="15000" oninput="calculateNetCost()"></div>
-                    </div>
-                    <div class="input-row">
-                        <label>Student Work-Study / Family Capital</label>
-                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="savings" value="5000" oninput="calculateNetCost()"></div>
-                    </div>
+            <section id="ways-to-pay" class="content-section">
+                <div class="section-heading">
+                    <p class="eyebrow">02 · Know what kind of help it is</p>
+                    <h2>“Financial aid” can mean different things.</h2>
+                    <p>Some help reduces what you owe. Other options help you pay over time—or are money you must repay. Check your actual offer before deciding.</p>
                 </div>
-                <div class="output-hero">
-                    <p>True Out-of-Pocket Annual Obligation</p>
-                    <div id="net-cost-output" class="metric-value">$25,000.00</div>
-                </div>
-            </section>
-
-            <!-- VIEW 3: DEBT FORECASTER -->
-            <section id="loan-calc" class="page">
-                <h2>10-Year Student Loan Forecaster</h2>
-                <p class="panel-desc">Model how compound interest algorithms scale financial obligations across standard repayment cycles.</p>
-                
-                <div class="form-panel">
-                    <div class="input-row">
-                        <label>Total Principal Loan Accumulation</label>
-                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="loan-principal" value="30000" oninput="forecastLoan()"></div>
-                    </div>
-                    <div class="input-row">
-                        <label>Annual Interest Percentage Rate (APR)</label>
-                        <div class="input-wrapper"><span class="input-icon">%</span><input type="number" id="loan-rate" value="6.8" step="0.1" oninput="forecastLoan()" style="padding-left: 36px;"></div>
-                    </div>
-                </div>
-                <div class="output-hero">
-                    <p>Projected Monthly Payment Liability</p>
-                    <div id="monthly-output" class="metric-value warning-color">$345.24</div>
-                    <div class="dual-metrics">
-                        <div class="sub-hero"><h4>Total Lifetime Interest</h4><div id="interest-output">$11,428.80</div></div>
-                        <div class="sub-hero"><h4>Cumulative Repayment</h4><div id="total-paid-output">$41,428.80</div></div>
-                    </div>
+                <div class="aid-grid">
+                    <article class="aid-card gift-card">
+                        <span class="aid-label">Usually does not need to be repaid</span>
+                        <h3>Grants and scholarships</h3>
+                        <p>Money for school that usually doesn’t have to be paid back. Some awards have rules, such as keeping certain grades or enrolling in a specific program. Read the offer carefully.</p>
+                        <a href="https://studentaid.gov/understand-aid/types/grants" target="_blank" rel="noopener noreferrer">Learn about grants on StudentAid.gov ↗</a>
+                    </article>
+                    <article class="aid-card">
+                        <span class="aid-label">Earned through a job</span>
+                        <h3>Work-study and student jobs</h3>
+                        <p>This is money you earn by working. It is not usually taken off your bill in advance, and you need to work the hours to receive the pay.</p>
+                        <a href="https://studentaid.gov/understand-aid/types/work-study" target="_blank" rel="noopener noreferrer">Learn about work-study ↗</a>
+                    </article>
+                    <article class="aid-card">
+                        <span class="aid-label">Must be repaid</span>
+                        <h3>Student loans</h3>
+                        <p>A loan is borrowed money. You pay it back, often with extra money called interest. Before accepting, check the interest rate, fees, and repayment rules.</p>
+                        <a href="https://studentaid.gov/understand-aid/types/loans" target="_blank" rel="noopener noreferrer">Learn about federal student loans ↗</a>
+                    </article>
+                    <article class="aid-card">
+                        <span class="aid-label">A way to cover the rest</span>
+                        <h3>Savings, family help, and payment plans</h3>
+                        <p>These may help cover costs left after grants or scholarships. Ask the college about payment-plan details and any fees before choosing one.</p>
+                        <a href="#next-steps">Questions to ask the college ↓</a>
+                    </article>
                 </div>
             </section>
 
-            <!-- VIEW 4: FAFSA & FEDERAL AID ENGINE -->
-            <section id="federal-calc" class="page">
-                <h2>FAFSA & Federal Need-Based Eligibility</h2>
-                <p class="panel-desc">An institutional simulation tracking parent financial indexes against corporate federal guidelines.</p>
-                
-                <div class="form-panel">
-                    <div class="input-row">
-                        <label>Parental Combined Net Annual Income</label>
-                        <div class="input-wrapper"><span class="input-icon">$</span><input type="number" id="parent-income" value="65000" oninput="calculateFederalAid()"></div>
-                    </div>
-                    <div class="input-row">
-                        <label>Household Size (Dependents)</label>
-                        <div class="input-wrapper"><input type="number" id="household-size" value="4" min="1" oninput="calculateFederalAid()" style="padding-left: 16px;"></div>
-                    </div>
+            <section id="loan-planner" class="content-section">
+                <div class="section-heading">
+                    <p class="eyebrow">03 · Try a loan example</p>
+                    <h2>What could a loan payment look like?</h2>
+                    <p>Try numbers from a loan offer, or change them to compare examples. This shows one possible fixed-rate payment plan—not what you should borrow.</p>
                 </div>
-                <div class="output-hero" style="text-align: left;">
-                    <div class="data-block">
-                        <span class="block-label">Predicted Federal Pell Grant Allocation:</span>
-                        <div id="pell-output" class="highlight-val style-green">$7,395 / year</div>
-                    </div>
-                    <div class="data-block" style="margin-top: 20px;">
-                        <span class="block-label">FAFSA Index Action Strategy:</span>
-                        <p id="fafsa-strategy-text" style="margin-top: 5px; color: var(--text-main); font-size: 14px; line-height: 1.5;"></p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- VIEW 5: MERIT SCHOLARSHIP MATRIX -->
-            <section id="merit-calc" class="page">
-                <h2>Institutional Merit Matrix</h2>
-                <p class="panel-desc">Map objective standardized testing profiles and academic parameters to college merit pathways.</p>
-                
-                <div class="form-panel">
-                    <div class="dual-metrics" style="margin-top:0; margin-bottom:0; gap:20px;">
-                        <div class="input-row" style="margin-bottom:0; flex:1;">
-                            <label>Unweighted GPA</label>
-                            <input type="number" id="student-gpa" value="3.9" step="0.1" min="0" max="4.0" oninput="calculateMerit()" style="padding-left:16px;">
+                <div class="planner-grid">
+                    <form id="loan-form" class="form-panel">
+                        <div class="input-row">
+                            <label for="loan-amount">Loan amount</label>
+                            <p class="field-help">Enter the amount you’re thinking of borrowing. If borrowing for multiple years, add the amounts together.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">$</span><input id="loan-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="For example, 10000" required></div>
                         </div>
-                        <div class="input-row" style="margin-bottom:0; flex:1;">
-                            <label>SAT Cumulative Score</label>
-                            <input type="number" id="student-sat" value="1530" step="10" min="400" max="1600" oninput="calculateMerit()" style="padding-left:16px;">
+                        <div class="input-row">
+                            <label for="interest-rate">Interest rate</label>
+                            <p class="field-help">Use the rate in your loan offer. If you don’t have one yet, try different rates to see how the payment changes.</p>
+                            <div class="input-wrapper"><span aria-hidden="true">%</span><input id="interest-rate" type="number" min="0" max="100" step="0.01" inputmode="decimal" placeholder="For example, 6.5" required></div>
                         </div>
-                    </div>
+                        <div class="input-row">
+                            <label for="repayment-years">How many years to repay?</label>
+                            <p class="field-help">This example uses equal monthly payments. Actual loan repayment choices can be different.</p>
+                            <select id="repayment-years">
+                                <option value="10">10 years</option>
+                                <option value="15">15 years</option>
+                                <option value="20">20 years</option>
+                            </select>
+                        </div>
+                    </form>
+                    <aside class="results-panel" aria-live="polite" aria-atomic="true">
+                        <p class="result-kicker">Estimated payment each month</p>
+                        <p id="monthly-payment" class="main-result">—</p>
+                        <p class="result-explainer">A simple example to help you compare—not a loan offer.</p>
+                        <div class="result-divider"></div>
+                        <div class="result-row"><span>Estimated interest paid</span><strong id="loan-interest">—</strong></div>
+                        <div class="result-row"><span>Estimated total repaid</span><strong id="loan-total">—</strong></div>
+                        <p id="loan-message" class="result-message">Enter an amount and interest rate to see an example.</p>
+                    </aside>
                 </div>
-                <div class="output-hero" style="text-align: left;">
-                    <h3 id="merit-tier-title" style="color: var(--primary); font-size: 18px; font-weight: 700; margin-bottom: 8px;">Scanning Merit Indexes...</h3>
-                    <p id="merit-tier-desc" style="color: var(--text-main); font-size: 14px; line-height: 1.5; margin-bottom: 20px;"></p>
-                    
-                    <div class="sub-hero">
-                        <h4 style="color: var(--warning); font-size: 13px; margin-bottom: 8px;">Target High-ROI College Matching Matrices:</h4>
-                                                <ul id="merit-college-list" style="margin-left: 20px; font-size: 14px; line-height: 1.8;"></ul>
-                    </div>
+                <p class="disclaimer">This example assumes you borrow the full amount at once and repay it in equal monthly payments at the same interest rate for the full term. It does not include fees, changing rates, or interest that may build before repayment starts. Real loan terms and payment options vary. Learn about your actual options at StudentAid.gov.</p>
+            </section>
+
+            <section id="next-steps" class="content-section next-steps">
+                <div class="section-heading">
+                    <p class="eyebrow">04 · A next-step checklist</p>
+                    <h2>You don’t have to figure it all out today.</h2>
+                    <p>Use these steps to replace guesses with information from the people and schools that can confirm it.</p>
+                </div>
+                <ol class="checklist">
+                    <li><span>1</span><div><h3>Find each school’s yearly cost estimate</h3><p>Look for “cost of attendance” or “net price calculator” on the school’s official website. Include living costs—not just tuition.</p></div></li>
+                    <li><span>2</span><div><h3>Apply for financial aid if you plan to</h3><p>Use the official FAFSA website and ask your school counselor or the college’s financial aid office if you need help.</p><a href="https://studentaid.gov/h/apply-for-aid/fafsa" target="_blank" rel="noopener noreferrer">Go to the official FAFSA site ↗</a></div></li>
+                    <li><span>3</span><div><h3>Check scholarships on the college’s own website</h3><p>Look for deadlines, who can apply, what the award covers, and whether it can be renewed. Never assume you’ll receive an award until it is offered to you.</p></div></li>
+                    <li><span>4</span><div><h3>Read the aid offer line by line</h3><p>Separate grants and scholarships from work-study and loans. Ask the college to explain anything you don’t understand before accepting.</p></div></li>
+                    <li><span>5</span><div><h3>Ask questions—this is what the aid office is there for</h3><p>Try: “What will I still need to pay for the year?” “Which aid do I have to repay?” “What costs or fees are not included here?”</p></div></li>
+                </ol>
+                <div class="trusted-links">
+                    <a href="https://studentaid.gov/" target="_blank" rel="noopener noreferrer">Federal Student Aid ↗</a>
+                    <a href="https://collegescorecard.ed.gov/" target="_blank" rel="noopener noreferrer">Compare colleges with College Scorecard ↗</a>
+                    <a href="https://www.nhheaf.org/" target="_blank" rel="noopener noreferrer">New Hampshire student aid resources ↗</a>
                 </div>
             </section>
 
+            <footer>
+                <p>CapWay is a student planning guide, not a college, lender, or financial aid office. Costs, aid, and loan terms vary. Always confirm current details with official sources.</p>
+            </footer>
         </main>
     </div>
 
-    <!-- CODE INTERACTIVE RUNTIME LOGIC -->
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            calculateNetCost();
-            forecastLoan();
-            calculateFederalAid();
-            calculateMerit();
+        const money = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 2
         });
 
-        function showPage(pageId) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
+        const comparisonInputIds = ['cost', 'grants', 'loans', 'work'];
+        const comparisonInputElements = ['a', 'b'].flatMap(school =>
+            comparisonInputIds.map(type => document.getElementById(`school-${school}-${type}`))
+        );
+        const tuitionBreakAmount = 12000;
+        const exampleFinanceSalary = 75000;
 
-            const navButtons = document.querySelectorAll('.side-links button');
-            navButtons.forEach(btn => btn.classList.remove('active-nav'));
-            
-            const targetButton = document.getElementById('nav-' + pageId);
-            if (targetButton) {
-                targetButton.classList.add('active-nav');
-            }
+        function readComparisonAmount(school, type) {
+            const input = document.getElementById(`school-${school}-${type}`);
+            const rawValue = input.value.trim();
+            if (rawValue === '' && (type === 'loans' || type === 'work')) return 0;
+            if (rawValue === '') return null;
+            const amount = Number(rawValue);
+            return Number.isFinite(amount) && amount >= 0 ? amount : null;
         }
 
-        function calculateNetCost() {
-            const sticker = parseFloat(document.getElementById('sticker-price').value) || 0;
-            const grants = parseFloat(document.getElementById('grants').value) || 0;
-            const savings = parseFloat(document.getElementById('savings').value) || 0;
-            const netCost = Math.max(0, sticker - (grants + savings));
-            document.getElementById('net-cost-output').innerText = "$" + netCost.toLocaleString(undefined, {minimumFractionDigits: 2});
+        function updateCollegeComparison() {
+            const schoolResults = {};
+
+            ['a', 'b'].forEach(school => {
+                const cost = readComparisonAmount(school, 'cost');
+                const grants = readComparisonAmount(school, 'grants');
+                const loans = readComparisonAmount(school, 'loans');
+                const work = readComparisonAmount(school, 'work');
+                const tuitionBreakSelected = document.getElementById(`school-${school}-nebhe`).checked;
+                const gapOutput = document.getElementById(`school-${school}-gap`);
+                const afterLoansOutput = document.getElementById(`school-${school}-after-loans`);
+                const workOutput = document.getElementById(`school-${school}-work-result`);
+                const originalCostOutput = document.getElementById(`school-${school}-original-cost`);
+                const tuitionBreakOutput = document.getElementById(`school-${school}-nebhe-amount`);
+                const adjustedCostOutput = document.getElementById(`school-${school}-adjusted-cost`);
+                const message = document.getElementById(`school-${school}-message`);
+                const nameInput = document.getElementById(`school-${school}-name`);
+                const heading = document.querySelector(`[data-school="${school}"] .college-column-heading`);
+                const name = nameInput.value.trim() || `College ${school.toUpperCase()}`;
+
+                heading.textContent = name;
+
+                if (cost === null) {
+                    originalCostOutput.textContent = '—';
+                    tuitionBreakOutput.textContent = '—';
+                    adjustedCostOutput.textContent = '—';
+                    gapOutput.textContent = '—';
+                    afterLoansOutput.textContent = '—';
+                    workOutput.textContent = '—';
+                    message.textContent = 'Enter a valid yearly cost and grant/scholarship amount. Use $0 if you have no offer for loans or work-study.';
+                    schoolResults[school] = null;
+                    return;
+                }
+
+                const appliedTuitionBreak = tuitionBreakSelected ? Math.min(cost, tuitionBreakAmount) : 0;
+                const adjustedCost = cost - appliedTuitionBreak;
+                originalCostOutput.textContent = money.format(cost);
+                tuitionBreakOutput.textContent = money.format(appliedTuitionBreak);
+                adjustedCostOutput.textContent = money.format(adjustedCost);
+
+                if (grants === null || loans === null || work === null) {
+                    gapOutput.textContent = '—';
+                    afterLoansOutput.textContent = '—';
+                    workOutput.textContent = '—';
+                    message.textContent = 'Enter valid aid amounts to see what may still need to be covered.';
+                    schoolResults[school] = null;
+                    return;
+                }
+
+                const gapAfterGrants = Math.max(0, adjustedCost - grants);
+                const gapAfterLoans = Math.max(0, gapAfterGrants - loans);
+                gapOutput.textContent = money.format(gapAfterGrants);
+                afterLoansOutput.textContent = money.format(gapAfterLoans);
+                workOutput.textContent = money.format(work);
+                message.textContent = grants > adjustedCost
+                    ? 'The grants and scholarships entered are higher than the cost entered. Ask the college how any extra aid is handled.'
+                    : loans > gapAfterGrants
+                        ? 'The loan amount is more than the gap after grants. You do not have to accept all offered loans; ask the college what applies.'
+                        : 'Loans shown are borrowed money to repay. Work-study is earned later through a job. Neither is a discount on college costs.';
+                schoolResults[school] = { name, gapAfterGrants };
+            });
+
+            updateFinanceRoiTracker('a');
+            updateFinanceRoiTracker('b');
+            updateComparisonTakeaway(schoolResults);
         }
 
-        function forecastLoan() {
-            const principal = parseFloat(document.getElementById('loan-principal').value) || 0;
-            const annualRate = parseFloat(document.getElementById('loan-rate').value) || 0;
-            const years = 10;
+        function updateFinanceRoiTracker(school) {
+            const input = document.getElementById(`school-${school}-total-loans`);
+            const result = document.getElementById(`school-${school}-roi-result`);
+            const rawValue = input.value.trim();
+            const totalLoans = rawValue === '' ? null : Number(rawValue);
 
-            if (principal === 0 || annualRate === 0) {
-                const flatMonthly = principal / (years * 12);
-                document.getElementById('monthly-output').innerText = "$" + flatMonthly.toFixed(2);
-                document.getElementById('interest-output').innerText = "$0.00";
-                document.getElementById('total-paid-output').innerText = "$" + principal.toFixed(2);
+            result.className = 'roi-result';
+            if (totalLoans === null) {
+                result.textContent = 'Enter your estimated total loans to see this example comparison.';
+                return;
+            }
+            if (!Number.isFinite(totalLoans) || totalLoans < 0) {
+                result.classList.add('roi-result-invalid');
+                result.textContent = 'Enter a valid total loan amount of $0 or more.';
                 return;
             }
 
-            const monthlyRate = (annualRate / 100) / 12;
-            const totalMonths = years * 12;
-            const monthlyPayment = (principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
-            const totalPaid = monthlyPayment * totalMonths;
-            const totalInterest = totalPaid - principal;
-
-            document.getElementById('monthly-output').innerText = "$" + monthlyPayment.toFixed(2);
-            document.getElementById('interest-output').innerText = "$" + totalInterest.toFixed(2);
-            document.getElementById('total-paid-output').innerText = "$" + totalPaid.toFixed(2);
+            if (totalLoans < 35000) {
+                result.classList.add('roi-result-lower');
+                result.textContent = `Below $35,000 in estimated loans. That is less than half of the $${exampleFinanceSalary.toLocaleString()} salary used in this example. This is not a guarantee that borrowing is safe.`;
+            } else if (totalLoans <= exampleFinanceSalary) {
+                result.classList.add('roi-result-middle');
+                result.textContent = `Between $35,000 and $${exampleFinanceSalary.toLocaleString()} in estimated loans. Compare possible monthly payments with take-home pay; both salaries and loan terms vary.`;
+            } else {
+                result.classList.add('roi-result-higher');
+                result.textContent = `More than the $${exampleFinanceSalary.toLocaleString()} salary used in this example. Explore grants, scholarships, and lower-cost options, and compare monthly payments before borrowing.`;
+            }
         }
 
-        function calculateFederalAid() {
-            const income = parseFloat(document.getElementById('parent-income').value) || 0;
-            const size = parseInt(document.getElementById('household-size').value) || 1;
-            
-            let pellGrant = 0;
-            let strategy = "";
-
-            if (income <= 50000 + (size * 5000)) {
-                pellGrant = 7395;
-                strategy = "Maximum Need-Based Status.";
-            } else if (income <= 100000) {
-                pellGrant = 4000;
-                strategy = "Moderate Need-Based Bracket. Focus on public in-state choices or generous private institutions using the CSS Profile to capture institutional aid.";
-            } else if (income <= 150000) {
-                pellGrant = 0;
-                strategy = "Middle-Class Non-Need Gap Bracket. Too high for federal need grants, but heavily exposed to out-of-pocket tuition costs. Strategy: Target private universities that guarantee meeting 100% of demonstrated financial need or public universities with automatic regional tuition breaks.";
-            } else {
-                pellGrant = 0;
-                strategy = "High-Income Non-Need Threshold. Federal aid is limited to unsubsidized loans. Strategy: Pivot entirely to merit-based automatic tuition grids where high GPA/SAT profiles completely offset the sticker price delta.";
+        function updateComparisonTakeaway(results) {
+            const takeaway = document.getElementById('comparison-takeaway');
+            if (!results.a || !results.b) {
+                takeaway.textContent = 'Enter the yearly cost and grants/scholarships for both colleges to compare what remains. Loans and work-study are shown separately.';
+                return;
             }
 
-            document.getElementById('pell-output').innerText = pellGrant > 0 ? "$" + pellGrant.toLocaleString() + " / year" : "$0.00";
-            document.getElementById('fafsa-strategy-text').innerText = strategy;
-        }
-
-        function calculateMerit() {
-            const gpa = parseFloat(document.getElementById('student-gpa').value) || 0;
-            const sat = parseInt(document.getElementById('student-sat').value) || 0;
-            
-            let title = "";
-            let desc = "";
-            let schools = [];
-
-            if (gpa >= 3.9 && sat >= 1500) {
-                title = "Tier 1: Elite Automatic Presidential Excellence Award";
-                desc = "Your academic variables command complete automatic tuition offsets. These milestones unlock flagship institutional honors frameworks and highly competitive non-need-based multi-year scholarships.";
-                schools = [
-                    "Boston College (Carroll School of Management) - Elite Regional Recruitment",
-                    "Northeastern University - Renowned Enterprise Co-op Corporate Pipeline",
-                    "University of Massachusetts Amherst (Isenberg School of Management) - High-ROI Public Honors Option",
-                    "University of New Hampshire (Peter T. Paul College) - Maximum In-State Automatic Merit Offset"
-                ];
-            } else if (gpa >= 3.5 || sat >= 1300) {
-                title = "Tier 2: High Honors Merit Bracket";
-                desc = "Qualifies for competitive institutional discounts averaging $15,000 to $25,000 annually. Pair these indicators with regional endowment funds and targeted business administration programs.";
-                schools = [
-                    "Bentley University - Elite Corporate Finance & Advanced Analytics Infrastructure",
-                    "Babson College - World-Class Entrepreneurial Leadership & Finance Integration",
-                    "Bryant University - High-Earning Career Outcomes & Finance Practicum Lab"
-                ];
-            } else {
-                title = "Tier 3: Standard Academic Achievement Foundation";
-                desc = "Eligible for baseline geographic state-grants and standard university programmatic entry scholarship tiers.";
-                schools = [
-                    "Plymouth State University - Regional Corporate Pipelines",
-                    "Keene State College",
-                    "UMass Lowell"
-                ];
+            const difference = Math.abs(results.a.gapAfterGrants - results.b.gapAfterGrants);
+            if (difference < 0.01) {
+                takeaway.textContent = `After the grants and scholarships entered, ${results.a.name} and ${results.b.name} have the same estimated amount left to cover. Compare other costs, award rules, and what matters to you.`;
+                return;
             }
 
-            document.getElementById('merit-tier-title').innerText = title;
-            document.getElementById('merit-tier-desc').innerText = desc;
-            
-            const list = document.getElementById('merit-college-list');
-            list.innerHTML = "";
-            schools.forEach(s => {
-                const li = document.createElement('li');
-                li.innerText = s;
-                list.appendChild(li);
-            });
+            const lowerCost = results.a.gapAfterGrants < results.b.gapAfterGrants ? results.a : results.b;
+            const higherCost = lowerCost === results.a ? results.b : results.a;
+            takeaway.textContent = `Based on the amounts entered, ${lowerCost.name} has ${money.format(difference)} less left to cover after grants and scholarships than ${higherCost.name}. This is only one part of choosing a college—check the numbers and award rules with both schools.`;
         }
+
+        comparisonInputElements.forEach(input => {
+            input.addEventListener('input', updateCollegeComparison);
+            input.addEventListener('change', updateCollegeComparison);
+        });
+        ['a', 'b'].forEach(school => {
+            document.getElementById(`school-${school}-name`).addEventListener('input', updateCollegeComparison);
+            document.getElementById(`school-${school}-nebhe`).addEventListener('change', updateCollegeComparison);
+            document.getElementById(`school-${school}-total-loans`).addEventListener('input', () => updateFinanceRoiTracker(school));
+        });
+        updateCollegeComparison();
+
+        const loanForm = document.getElementById('loan-form');
+        const loanAmountInput = document.getElementById('loan-amount');
+        const interestRateInput = document.getElementById('interest-rate');
+        const repaymentYearsInput = document.getElementById('repayment-years');
+
+        function updateLoanEstimate() {
+            const amountValue = loanAmountInput.value.trim();
+            const rateValue = interestRateInput.value.trim();
+            const amount = amountValue === '' ? null : Number(amountValue);
+            const annualRate = rateValue === '' ? null : Number(rateValue);
+            const years = Number(repaymentYearsInput.value);
+            const paymentOutput = document.getElementById('monthly-payment');
+            const interestOutput = document.getElementById('loan-interest');
+            const totalOutput = document.getElementById('loan-total');
+            const message = document.getElementById('loan-message');
+
+            if (amount === null || annualRate === null || !Number.isFinite(amount)
+                || !Number.isFinite(annualRate) || amount < 0 || annualRate < 0 || annualRate > 100) {
+                paymentOutput.textContent = '—';
+                interestOutput.textContent = '—';
+                totalOutput.textContent = '—';
+                message.textContent = 'Enter a loan amount and an interest rate from 0% to 100%.';
+                return;
+            }
+
+            const months = years * 12;
+            const monthlyRate = annualRate / 100 / 12;
+            const monthlyPayment = monthlyRate === 0
+                ? amount / months
+                : amount * monthlyRate / (1 - Math.pow(1 + monthlyRate, -months));
+            const totalPaid = monthlyPayment * months;
+            paymentOutput.textContent = money.format(monthlyPayment);
+            interestOutput.textContent = money.format(totalPaid - amount);
+            totalOutput.textContent = money.format(totalPaid);
+            message.textContent = `Example: ${years} years of equal monthly payments, assuming the rate stays the same. Actual loan terms may differ.`;
+        }
+
+        loanForm.addEventListener('input', updateLoanEstimate);
+        loanForm.addEventListener('change', updateLoanEstimate);
+        updateLoanEstimate();
     </script>
 </body>
 </html>
