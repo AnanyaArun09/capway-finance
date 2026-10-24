@@ -28,8 +28,8 @@
         <main class="viewport">
             <section id="home" class="hero page-view is-active">
                 <p class="eyebrow">Your college plan starts here</p>
-                <h1>College costs can be confusing. Let’s make them clearer.</h1>
-                <p class="hero-copy">CapWay is a student-friendly guide for making sense of college costs and financial aid. Use it to compare the yearly costs and aid offers from up to five colleges, see how grants, scholarships, loans, and work-study differ, and estimate what a loan payment might look like.</p>
+                <h1>College costs can be confusing. Capway clears them up.</h1>
+                <p class="hero-copy">CapWay is a guide specifically designed to help you make sense of college costs and financial aid. We want to introduce you to the numbers you might see when plannign for college. Compare the yearly costs and aid offers from up to five colleges, see how grants, scholarships, loans, and work-study differ, and estimate what a loan payment could look like.</p>
                 <p class="hero-note">You can start with the information you already have. CapWay does not look up or verify college prices or aid offers, so use each school’s official information and ask its financial aid office to confirm your numbers.</p>
                 <div class="home-pages">
                     <h2>What would you like help with?</h2>
@@ -51,6 +51,10 @@
 
                 <button id="add-college-button" class="add-college-button" type="button"><span aria-hidden="true">+</span> Add College to Compare (Max 5)</button>
                 <div id="colleges-container" class="dynamic-college-grid"></div>
+                <div class="comparison-refresh">
+                    <p>Estimates update as you type. You can also refresh every college after editing.</p>
+                    <button id="recalculate-colleges-button" class="recalculate-button" type="button">Recalculate all colleges</button>
+                </div>
 
                 <div id="comparison-takeaway" class="comparison-takeaway" aria-live="polite">Enter yearly costs and grants/scholarships for at least two colleges to compare the estimates.</div>
                 <p class="disclaimer">This is a planning comparison—not a bill or a recommendation about which college to choose. The $12,000 Tuition Break amount and $75,000 salary are examples chosen for this tool, not guaranteed savings or verified salary averages. Tuition Break eligibility and savings vary by program. Loans must be repaid, and work-study must be earned; neither reduces the college’s cost. Confirm costs, eligibility, and current award details with each college.</p>
@@ -71,7 +75,7 @@
                 <div class="section-heading">
                     <p class="eyebrow">02 · Know what kind of help it is</p>
                     <h2>“Financial aid” can mean different things.</h2>
-                    <p>Some help reduces what you owe. Other options help you pay over time—or are money you must repay. Check your actual offer before deciding.</p>
+                    <p>Some types of financial aid reduce what you owe. Other options help you pay over time or are money you must repay later. Check your actual offer before deciding.</p>
                 </div>
                 <div class="aid-grid">
                     <article class="aid-card gift-card">
@@ -105,7 +109,7 @@
                 <div class="section-heading">
                     <p class="eyebrow">03 · Try a loan example</p>
                     <h2>What could a loan payment look like?</h2>
-                    <p>Try numbers from a loan offer, or change them to compare examples. This shows one possible fixed-rate payment plan—not what you should borrow.</p>
+                    <p>Try numbers from a loan offer, or change them to compare examples. This shows one possible fixed-rate payment plan. This is not telling you what you should borrow. </p>
                 </div>
                 <div class="planner-grid">
                     <form id="loan-form" class="form-panel">
@@ -121,12 +125,8 @@
                         </div>
                         <div class="input-row">
                             <label for="repayment-years">How many years to repay?</label>
-                            <p class="field-help">This example uses equal monthly payments. Actual loan repayment choices can be different.</p>
-                            <select id="repayment-years">
-                                <option value="10">10 years</option>
-                                <option value="15">15 years</option>
-                                <option value="20">20 years</option>
-                            </select>
+                            <p class="field-help">Enter the number of years you want to explore. This example uses equal monthly payments; actual loan repayment choices can be different.</p>
+                            <div class="input-wrapper"><input id="repayment-years" type="number" min="1" step="1" inputmode="numeric" placeholder="For example, 10" required></div>
                         </div>
                     </form>
                     <aside class="results-panel" aria-live="polite" aria-atomic="true">
@@ -139,21 +139,21 @@
                         <p id="loan-message" class="result-message">Enter an amount and interest rate to see an example.</p>
                     </aside>
                 </div>
-                <p class="disclaimer">This example assumes you borrow the full amount at once and repay it in equal monthly payments at the same interest rate for the full term. It does not include fees, changing rates, or interest that may build before repayment starts. Real loan terms and payment options vary. Learn about your actual options at StudentAid.gov.</p>
+                <p class="disclaimer">This example assumes you borrow the full amount at once and repay it in equal monthly payments at the same interest rate for the full term. It does not include fees, changing rates, or interest that may build before repayment starts. Real loan terms and payment options vary. Learn about other options on websites like StudentAid.gov.</p>
             </section>
 
             <section id="next-steps" class="content-section next-steps page-view">
                 <div class="section-heading">
                     <p class="eyebrow">04 · A next-step checklist</p>
                     <h2>You don’t have to figure it all out today.</h2>
-                    <p>Use these steps to replace guesses with information from the people and schools that can confirm it.</p>
+                    <p>College planning is extensive. Use these steps to replace your unknowns with information from the people and schools that can confirm it.</p>
                 </div>
                 <ol class="checklist">
-                    <li><span>1</span><div><h3>Find each school’s yearly cost estimate</h3><p>Look for “cost of attendance” or “net price calculator” on the school’s official website. Include living costs—not just tuition.</p></div></li>
+                    <li><span>1</span><div><h3>Find each school’s yearly cost estimate</h3><p>Look for “cost of attendance” or “net price calculator” on the school’s official website. Include living costs and other costs.</p></div></li>
                     <li><span>2</span><div><h3>Apply for financial aid if you plan to</h3><p>Use the official FAFSA website and ask your school counselor or the college’s financial aid office if you need help.</p><a href="https://studentaid.gov/h/apply-for-aid/fafsa" target="_blank" rel="noopener noreferrer">Go to the official FAFSA site ↗</a></div></li>
                     <li><span>3</span><div><h3>Check scholarships on the college’s own website</h3><p>Look for deadlines, who can apply, what the award covers, and whether it can be renewed. Never assume you’ll receive an award until it is offered to you.</p></div></li>
                     <li><span>4</span><div><h3>Read the aid offer line by line</h3><p>Separate grants and scholarships from work-study and loans. Ask the college to explain anything you don’t understand before accepting.</p></div></li>
-                    <li><span>5</span><div><h3>Ask questions—this is what the aid office is there for</h3><p>Try: “What will I still need to pay for the year?” “Which aid do I have to repay?” “What costs or fees are not included here?”</p></div></li>
+                    <li><span>5</span><div><h3>Ask questions: this is exactly what the aid office is there for</h3><p>Try: “What will I still need to pay for the year?” “Which aid do I have to repay?” “What costs or fees are not included here?”</p></div></li>
                 </ol>
                 <div class="trusted-links">
                     <a href="https://studentaid.gov/" target="_blank" rel="noopener noreferrer">Federal Student Aid ↗</a>
@@ -216,7 +216,7 @@
                 </div>
                 <div class="input-row">
                     <label for="school-${index}-grants">Grants and scholarships</label>
-                    <p class="field-help">Gift aid from your offer—money you usually don’t repay. Check whether awards renew each year.</p>
+                    <p class="field-help">Gift aid from your offer. This will be money you usually don’t repay. Check whether these awards/grants renew yearly.</p>
                     <div class="input-wrapper"><span aria-hidden="true">$</span><input id="school-${index}-grants" class="comparison-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Enter yearly amount"></div>
                 </div>
                 <div class="input-row">
@@ -384,6 +384,11 @@
         }
 
         document.getElementById('add-college-button').addEventListener('click', addCollegeCard);
+        document.getElementById('recalculate-colleges-button').addEventListener('click', () => {
+            for (let index = 1; index <= allocatedCollegeCount; index += 1) {
+                calculateMetrics(index);
+            }
+        });
         addCollegeCard();
         addCollegeCard();
 
@@ -402,6 +407,14 @@
             const interestOutput = document.getElementById('loan-interest');
             const totalOutput = document.getElementById('loan-total');
             const message = document.getElementById('loan-message');
+
+            if (!Number.isFinite(years) || years < 1 || !Number.isInteger(years)) {
+                paymentOutput.textContent = '—';
+                interestOutput.textContent = '—';
+                totalOutput.textContent = '—';
+                message.textContent = 'Enter a whole number of repayment years greater than 0.';
+                return;
+            }
 
             if (amount === null || annualRate === null || !Number.isFinite(amount)
                 || !Number.isFinite(annualRate) || amount < 0 || annualRate < 0 || annualRate > 100) {

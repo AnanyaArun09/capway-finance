@@ -308,6 +308,43 @@ h1 {
     cursor: not-allowed;
 }
 
+.comparison-refresh {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 16px;
+    margin-top: 16px;
+}
+
+.comparison-refresh p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.recalculate-button {
+    min-height: 40px;
+    padding: 0 14px;
+    border: 1px solid var(--green-bright);
+    border-radius: 9px;
+    background: transparent;
+    color: var(--green-bright);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.recalculate-button:hover {
+    background: var(--soft-green);
+}
+
+.recalculate-button:focus-visible {
+    outline: 3px solid rgb(40 107 69 / 30%);
+    outline-offset: 3px;
+}
+
 .college-column {
     min-width: 0;
     padding: 21px;
