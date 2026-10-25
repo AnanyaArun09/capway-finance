@@ -179,7 +179,6 @@
         const exampleFinanceSalary = 75000;
         const minimumColleges = 2;
         const maximumColleges = 5;
-        let nextCollegeIndex = 0;
 
         function readComparisonAmount(index, type) {
             const input = document.getElementById(`school-${index}-${type}`);
@@ -191,9 +190,9 @@
         }
 
         function addCollegeCard() {
-            if (getCollegeCards().length >= maximumColleges) return;
-            nextCollegeIndex += 1;
-            const index = nextCollegeIndex;
+            const collegeCount = getCollegeCards().length;
+            if (collegeCount >= maximumColleges) return;
+            const index = collegeCount + 1;
             const card = document.createElement('article');
             card.className = 'college-column';
             card.dataset.collegeIndex = String(index);
