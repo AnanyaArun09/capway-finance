@@ -353,10 +353,53 @@ h1 {
     background: var(--sand);
 }
 
+.college-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
 .college-column-heading {
     margin-bottom: 18px;
     font-size: 20px;
     overflow-wrap: anywhere;
+}
+
+.remove-college-button {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+    place-items: center;
+    margin: -5px -5px 0 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--panel);
+    color: var(--muted);
+    font: inherit;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.remove-college-button:hover {
+    border-color: #c66b60;
+    background: #fff2ef;
+    color: #9b332b;
+}
+
+.remove-college-button:disabled {
+    border-color: var(--border);
+    background: var(--sand);
+    color: var(--muted);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.remove-college-button:focus-visible {
+    outline: 3px solid rgb(40 107 69 / 30%);
+    outline-offset: 3px;
 }
 
 .college-column .input-row {

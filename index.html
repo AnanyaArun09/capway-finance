@@ -177,8 +177,9 @@
 
         const tuitionBreakAmount = 12000;
         const exampleFinanceSalary = 75000;
+        const minimumColleges = 2;
         const maximumColleges = 5;
-        let allocatedCollegeCount = 0;
+        let nextCollegeIndex = 0;
 
         function readComparisonAmount(index, type) {
             const input = document.getElementById(`school-${index}-${type}`);
@@ -190,14 +191,17 @@
         }
 
         function addCollegeCard() {
-            if (allocatedCollegeCount >= maximumColleges) return;
-            allocatedCollegeCount += 1;
-            const index = allocatedCollegeCount;
+            if (getCollegeCards().length >= maximumColleges) return;
+            nextCollegeIndex += 1;
+            const index = nextCollegeIndex;
             const card = document.createElement('article');
             card.className = 'college-column';
             card.dataset.collegeIndex = String(index);
             card.innerHTML = `
-                <h3 class="college-column-heading">College ${index}</h3>
+                <div class="college-card-header">
+                    <h3 class="college-column-heading">College ${index}</h3>
+                    <button class="remove-college-button" type="button" aria-label="Remove College ${index}" title="Remove this college">−</button>
+                </div>
                 <div class="input-row">
                     <label for="school-${index}-name">College name (optional)</label>
                     <input id="school-${index}-name" type="text" maxlength="60" placeholder="For example, North Valley College">
@@ -251,18 +255,60 @@
             document.getElementById('colleges-container').appendChild(card);
 
             card.querySelectorAll('.comparison-amount, .comparison-toggle, .total-loan-input').forEach(input => {
-                input.addEventListener('input', () => calculateMetrics(index));
-                input.addEventListener('change', () => calculateMetrics(index));
+                input.addEventListener('input', () => calculateMetrics(Number(card.dataset.collegeIndex)));
+                input.addEventListener('change', () => calculateMetrics(Number(card.dataset.collegeIndex)));
             });
-            card.querySelector(`#school-${index}-name`).addEventListener('input', () => calculateMetrics(index));
+            card.querySelector(`#school-${index}-name`).addEventListener('input', () => calculateMetrics(Number(card.dataset.collegeIndex)));
+            card.querySelector('.remove-college-button').addEventListener('click', () => {
+                if (getCollegeCards().length <= minimumColleges) return;
+                card.remove();
+                renumberCollegeCards();
+                updateAddCollegeButton();
+                updateComparisonTakeaway();
+                document.getElementById('add-college-button').focus();
+            });
             calculateMetrics(index);
             updateAddCollegeButton();
         }
 
+        function getCollegeCards() {
+            return Array.from(document.querySelectorAll('#colleges-container .college-column'));
+        }
+
+        function renumberCollegeCards() {
+            getCollegeCards().forEach((card, position) => {
+                const previousIndex = card.dataset.collegeIndex;
+                const index = position + 1;
+                if (Number(previousIndex) === index) return;
+
+                card.querySelectorAll('[id], [for], [aria-labelledby], [aria-label]').forEach(element => {
+                    ['id', 'for', 'aria-labelledby', 'aria-label'].forEach(attribute => {
+                        const value = element.getAttribute(attribute);
+                        if (value) {
+                            element.setAttribute(attribute, value.replaceAll(`school-${previousIndex}-`, `school-${index}-`));
+                        }
+                    });
+                });
+                card.dataset.collegeIndex = String(index);
+                card.querySelector('.remove-college-button').setAttribute('aria-label', `Remove College ${index}`);
+                const name = card.querySelector(`#school-${index}-name`).value.trim();
+                card.querySelector('.college-column-heading').textContent = name || `College ${index}`;
+                calculateMetrics(index);
+            });
+        }
+
         function updateAddCollegeButton() {
             const button = document.getElementById('add-college-button');
-            button.disabled = allocatedCollegeCount >= maximumColleges;
-            button.setAttribute('aria-label', `Add a college to compare (${allocatedCollegeCount} of ${maximumColleges} used)`);
+            const collegeCount = getCollegeCards().length;
+            getCollegeCards().forEach(card => {
+                const removeButton = card.querySelector('.remove-college-button');
+                removeButton.disabled = collegeCount <= minimumColleges;
+                removeButton.title = removeButton.disabled
+                    ? 'At least two colleges are needed for comparison'
+                    : 'Remove this college';
+            });
+            button.disabled = collegeCount >= maximumColleges;
+            button.setAttribute('aria-label', `Add a college to compare (${collegeCount} of ${maximumColleges} used)`);
         }
 
         function calculateMetrics(index) {
@@ -385,9 +431,7 @@
 
         document.getElementById('add-college-button').addEventListener('click', addCollegeCard);
         document.getElementById('recalculate-colleges-button').addEventListener('click', () => {
-            for (let index = 1; index <= allocatedCollegeCount; index += 1) {
-                calculateMetrics(index);
-            }
+            getCollegeCards().forEach(card => calculateMetrics(Number(card.dataset.collegeIndex)));
         });
         addCollegeCard();
         addCollegeCard();
